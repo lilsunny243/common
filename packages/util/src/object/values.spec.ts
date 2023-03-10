@@ -1,10 +1,9 @@
 // Copyright 2017-2023 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { objectValues } from '.';
+import { objectValues } from './index.js';
 
 describe('objectValues', (): void => {
   it('extracts all values', (): void => {

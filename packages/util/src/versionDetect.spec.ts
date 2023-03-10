@@ -1,10 +1,9 @@
 // Copyright 2017-2023 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { detectPackage } from './versionDetect';
+import { detectPackage } from './versionDetect.js';
 
 describe('detectPackage', (): void => {
   const PKG = '@polkadot/util';

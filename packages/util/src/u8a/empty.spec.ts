@@ -1,11 +1,10 @@
 // Copyright 2017-2023 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { perf } from '../test';
-import { u8aEmpty } from '.';
+import { perf } from '../test/index.js';
+import { u8aEmpty } from './index.js';
 
 describe('u8aEmpty', (): void => {
   it('returns true on zero length', (): void => {

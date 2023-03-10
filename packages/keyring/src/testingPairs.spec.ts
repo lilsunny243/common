@@ -1,14 +1,13 @@
 // Copyright 2017-2023 @polkadot/keyring authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
 import { u8aToHex } from '@polkadot/util';
 import { cryptoWaitReady } from '@polkadot/util-crypto';
 
-import { createTestPairs } from './testingPairs';
-import Keyring from '.';
+import Keyring from './index.js';
+import { createTestPairs } from './testingPairs.js';
 
 const TEST_ADD = '0xf24FF3a9CF04c71Dbc94D0b566f7A27B94566cac';
 

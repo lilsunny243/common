@@ -1,10 +1,9 @@
 // Copyright 2017-2023 @polkadot/x-textencoder authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { TextEncoder } from './fallback';
+import { TextEncoder } from './fallback.js';
 
 describe('TextEncoder (fallback)', (): void => {
   it('encodes correctly', (): void => {

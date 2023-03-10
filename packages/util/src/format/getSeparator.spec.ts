@@ -1,10 +1,9 @@
 // Copyright 2017-2023 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { getSeparator } from './getSeparator';
+import { getSeparator } from './getSeparator.js';
 
 describe('getSeparator', (): void => {
   it('uses system locale', (): void => {

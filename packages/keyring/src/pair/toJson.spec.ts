@@ -1,10 +1,9 @@
 // Copyright 2017-2023 @polkadot/keyring authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { createTestPairs } from '../testingPairs';
+import { createTestPairs } from '../testingPairs.js';
 
 const keyring = createTestPairs({ type: 'ed25519' }, false);
 

@@ -1,12 +1,11 @@
 // Copyright 2017-2023 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import type { Keypair } from '../../types';
+import type { Keypair } from '../../types.js';
 
-import { ed25519PairFromRandom } from '..';
+import { ed25519PairFromRandom } from '../index.js';
 
 describe('ed25519PairFromRandom', (): void => {
   let keypair: Keypair;

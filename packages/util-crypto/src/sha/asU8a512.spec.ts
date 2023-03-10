@@ -1,13 +1,12 @@
 // Copyright 2017-2023 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
 import { waitReady } from '@polkadot/wasm-crypto';
 
-import { perfWasm } from '../test';
-import { sha512AsU8a } from '.';
+import { perfWasm } from '../test/index.js';
+import { sha512AsU8a } from './index.js';
 
 describe('sha512AsU8a', (): void => {
   beforeEach(async (): Promise<void> => {

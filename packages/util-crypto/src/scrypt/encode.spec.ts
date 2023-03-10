@@ -1,14 +1,13 @@
 // Copyright 2017-2023 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
 import { waitReady } from '@polkadot/wasm-crypto';
 
-import { perfWasm } from '../test';
-import { DEFAULT_PARAMS } from './defaults';
-import { scryptEncode } from '.';
+import { perfWasm } from '../test/index.js';
+import { DEFAULT_PARAMS } from './defaults.js';
+import { scryptEncode } from './index.js';
 
 export const KNOWN_TEST = 'testing, 123';
 

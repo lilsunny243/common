@@ -1,11 +1,10 @@
 // Copyright 2017-2023 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { hexToU8a } from '../hex';
-import { u8aToFloat } from '.';
+import { hexToU8a } from '../hex/index.js';
+import { u8aToFloat } from './index.js';
 
 describe('u8aToFloat', (): void => {
   it('throws on invalid bitLength', (): void => {

@@ -1,11 +1,10 @@
 // Copyright 2017-2023 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { keccakAsU8a } from '../keccak';
-import { ethereumEncode } from './';
+import { keccakAsU8a } from '../keccak/index.js';
+import { ethereumEncode } from './index.js';
 
 describe('formatAddress', () => {
   describe('address to address encoding', (): void => {

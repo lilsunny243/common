@@ -2,11 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type { HexString } from '@polkadot/util/types';
-import type { Prefix } from './types';
+import type { Prefix } from './types.js';
 
-import { base58Decode } from '../base58';
-import { checkAddressChecksum } from './checksum';
-import { defaults } from './defaults';
+import { base58Decode } from '../base58/index.js';
+import { checkAddressChecksum } from './checksum.js';
+import { defaults } from './defaults.js';
 
 /**
  * @name checkAddress

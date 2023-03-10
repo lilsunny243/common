@@ -1,15 +1,14 @@
 // Copyright 2017-2023 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
 import { u8aEq, u8aToHex } from '@polkadot/util';
 import { waitReady } from '@polkadot/wasm-crypto';
 
-import { randomAsU8a } from '../random/asU8a';
-import { perfWasm } from '../test';
-import { pbkdf2Encode } from '.';
+import { randomAsU8a } from '../random/asU8a.js';
+import { perfWasm } from '../test/index.js';
+import { pbkdf2Encode } from './index.js';
 
 const KNOWN_SALT = new Uint8Array([
   1, 2, 3, 4, 5, 6, 7, 8,
@@ -24,7 +23,7 @@ describe('pbkdf2Encode', (): void => {
     await waitReady();
   });
 
-  for (const rounds of <const> [256, 1024, 2048]) {
+  for (const rounds of [256, 1024, 2048] as const) {
     it(`has equivalent Wasm & JS results (${rounds} rounds)`, (): void => {
       const salt = randomAsU8a();
 

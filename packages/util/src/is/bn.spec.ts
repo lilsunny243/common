@@ -1,11 +1,10 @@
 // Copyright 2017-2023 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { BN } from '../bn';
-import { isBn } from '.';
+import { BN } from '../bn/index.js';
+import { isBn } from './index.js';
 
 describe('isBN', (): void => {
   it('returns true when a BN value', (): void => {

@@ -1,11 +1,10 @@
 // Copyright 2017-2023 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { base58Decode } from '../base58';
-import { base32Encode } from '.';
+import { base58Decode } from '../base58/index.js';
+import { base32Encode } from './index.js';
 
 describe('base32Encode', (): void => {
   it('encodes to a base32', (): void => {

@@ -1,10 +1,9 @@
 // Copyright 2017-2023 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { u8aToBuffer } from '.';
+import { u8aToBuffer } from './index.js';
 
 describe('u8aToBuffer', (): void => {
   it('returns [] when the buffer is null', (): void => {

@@ -1,11 +1,10 @@
 // Copyright 2017-2023 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { BN } from '../bn';
-import { _sqrt2pow53n, nSqrt } from '.';
+import { BN } from '../bn/index.js';
+import { _sqrt2pow53n, nSqrt } from './index.js';
 
 export const SQRT_TESTS: [string | number | BN | bigint, string | number][] = [
   [0, 0],

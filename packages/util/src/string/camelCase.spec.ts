@@ -1,14 +1,13 @@
 // Copyright 2017-2023 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
 import { getRandomValues } from '@polkadot/x-randomvalues';
 
-import { arrayRange } from '../array';
-import { perf } from '../test';
-import { stringCamelCase, stringUpperFirst } from '.';
+import { arrayRange } from '../array/index.js';
+import { perf } from '../test/index.js';
+import { stringCamelCase, stringUpperFirst } from './index.js';
 
 const SEPS = [' ', '_', '-', '.', ','];
 const words = 'bring|brisk|broccoli|broken|bronze|broom|brother|brown|brush|bubble|buddy|budget|buffalo|build|bulb|bulk|bullet|bundle|bunker|burden'.split('|');

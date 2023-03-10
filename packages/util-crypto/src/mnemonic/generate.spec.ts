@@ -1,12 +1,11 @@
 // Copyright 2017-2023 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { cryptoWaitReady } from '..';
-import { mnemonicGenerate } from './generate';
-import { mnemonicValidate } from './validate';
+import { cryptoWaitReady } from '../index.js';
+import { mnemonicGenerate } from './generate.js';
+import { mnemonicValidate } from './validate.js';
 
 await cryptoWaitReady();
 
@@ -19,7 +18,7 @@ describe('mnemonicGenerate', (): void => {
 
   for (const onlyJs of [false, true]) {
     describe(`onlyJs=${(onlyJs && 'true') || 'false'}`, (): void => {
-      for (const num of <const> [12, 15, 18, 21, 24]) {
+      for (const num of [12, 15, 18, 21, 24] as const) {
         it(`generates a valid mnemonic (${num} words)`, (): void => {
           const mnemonic = mnemonicGenerate(num, onlyJs);
           const isValid = mnemonicValidate(mnemonic);

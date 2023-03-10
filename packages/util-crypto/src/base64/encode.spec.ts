@@ -1,10 +1,9 @@
 // Copyright 2017-2023 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { base64Encode } from '.';
+import { base64Encode } from './index.js';
 
 describe('base64Encode', (): void => {
   it('encodes a mixed base64 utf8 string', (): void => {

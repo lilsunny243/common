@@ -1,12 +1,11 @@
 // Copyright 2017-2023 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
 import { waitReady } from '@polkadot/wasm-crypto';
 
-import { xxhashAsHex } from '.';
+import { xxhashAsHex } from './index.js';
 
 describe('xxhashAsHex', (): void => {
   beforeEach(async (): Promise<void> => {

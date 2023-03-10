@@ -1,10 +1,9 @@
 // Copyright 2017-2023 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { u8aToString } from '.';
+import { u8aToString } from './index.js';
 
 describe('u8aToString', (): void => {
   it('decodes to an empty string for undefined', (): void => {

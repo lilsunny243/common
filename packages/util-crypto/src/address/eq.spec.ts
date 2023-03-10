@@ -1,11 +1,10 @@
 // Copyright 2017-2023 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { ALICE_PUBLIC_SR } from './encode.spec';
-import { addressEq } from '.';
+import { ALICE_PUBLIC_SR } from './encode.spec.js';
+import { addressEq } from './index.js';
 
 describe('addressEq', (): void => {
   it('returns false with non-equal', (): void => {

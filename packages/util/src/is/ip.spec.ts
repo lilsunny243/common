@@ -1,10 +1,9 @@
 // Copyright 2017-2023 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { isIp } from '.';
+import { isIp } from './index.js';
 
 describe('isIp', (): void => {
   it('returns false when non-ip found', (): void => {

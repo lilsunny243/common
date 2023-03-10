@@ -1,14 +1,13 @@
 // Copyright 2017-2023 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
 import { hexToU8a, stringToU8a } from '@polkadot/util';
 import { waitReady } from '@polkadot/wasm-crypto';
 
-import { perfWasm } from '../test';
-import { keccakAsU8a } from '.';
+import { perfWasm } from '../test/index.js';
+import { keccakAsU8a } from './index.js';
 
 describe('keccakAsU8a', (): void => {
   beforeEach(async (): Promise<void> => {
@@ -25,7 +24,7 @@ describe('keccakAsU8a', (): void => {
     )
   };
 
-  for (const bitLength of <const> [256, 512]) {
+  for (const bitLength of [256, 512] as const) {
     describe(`bitLength=${bitLength}`, (): void => {
       for (const onlyJs of [false, true]) {
         describe(`onlyJs=${(onlyJs && 'true') || 'false'}`, (): void => {

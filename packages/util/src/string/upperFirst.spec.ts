@@ -1,11 +1,10 @@
 // Copyright 2017-2023 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { perf } from '../test';
-import { stringUpperFirst } from '.';
+import { perf } from '../test/index.js';
+import { stringUpperFirst } from './index.js';
 
 describe('stringUpperFirst', (): void => {
   it("uppers the first letter if it's a capital letter", (): void => {

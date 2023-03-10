@@ -1,12 +1,11 @@
 // Copyright 2017-2023 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
 import { u8aToHex } from '@polkadot/util';
 
-import { hdLedger } from '..';
+import { hdLedger } from '../index.js';
 
 const MNE_0 = 'abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about';
 const MNE_1 = 'open jelly jeans corn ketchup supreme brief element armed lens vault weather original scissors rug priority vicious lesson raven spot gossip powder person volcano';

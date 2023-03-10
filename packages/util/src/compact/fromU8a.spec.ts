@@ -1,13 +1,12 @@
 // Copyright 2017-2023 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { BN } from '../bn/bn';
-import { hexToU8a } from '../hex/toU8a';
-import { perf } from '../test';
-import { compactFromU8a, compactFromU8aLim } from '.';
+import { BN } from '../bn/bn.js';
+import { hexToU8a } from '../hex/toU8a.js';
+import { perf } from '../test/index.js';
+import { compactFromU8a, compactFromU8aLim } from './index.js';
 
 describe('compactFromU8a', (): void => {
   it('decoded u8 value', (): void => {

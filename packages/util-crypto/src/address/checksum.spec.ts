@@ -1,11 +1,10 @@
 // Copyright 2017-2023 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { base58Decode } from '../base58';
-import { checkAddressChecksum } from './checksum';
+import { base58Decode } from '../base58/index.js';
+import { checkAddressChecksum } from './checksum.js';
 
 describe('checkAddressChecksum', (): void => {
   it('correctly extracts the info from a 1-byte-prefix address', (): void => {

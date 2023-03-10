@@ -1,11 +1,10 @@
 // Copyright 2017-2023 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { perf } from '../test';
-import { objectSpread } from '.';
+import { perf } from '../test/index.js';
+import { objectSpread } from './index.js';
 
 describe('objectSpread', (): void => {
   it('spreads obj sources', (): void => {

@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type { HexString } from '@polkadot/util/types';
-import type { HashType } from '../secp256k1/types';
-import type { Prefix } from './types';
+import type { HashType } from '../secp256k1/types.js';
+import type { Prefix } from './types.js';
 
 import { u8aConcat } from '@polkadot/util';
 
-import { hasher } from '../secp256k1/hasher';
-import { encodeAddress } from './encode';
+import { hasher } from '../secp256k1/hasher.js';
+import { encodeAddress } from './encode.js';
 
 /**
  * @name evmToAddress

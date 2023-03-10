@@ -1,14 +1,13 @@
 // Copyright 2017-2023 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
 import { hexToU8a } from '@polkadot/util';
 import { waitReady } from '@polkadot/wasm-crypto';
 
-import { perfWasm } from '../test';
-import { blake2AsU8a } from '.';
+import { perfWasm } from '../test/index.js';
+import { blake2AsU8a } from './index.js';
 
 describe('blake2AsU8a', (): void => {
   beforeEach(async (): Promise<void> => {
@@ -65,7 +64,7 @@ describe('blake2AsU8a', (): void => {
     expect(a).toEqual(b);
   });
 
-  for (const bitLength of <const> [256, 512]) {
+  for (const bitLength of [256, 512] as const) {
     describe(`bitLength=${bitLength}`, (): void => {
       perfWasm(`blake2AsU8a, bitLength=${bitLength}`, 64000, (input, onlyJs) =>
         blake2AsU8a(input, bitLength, null, onlyJs)

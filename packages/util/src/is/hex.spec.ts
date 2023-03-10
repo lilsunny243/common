@@ -1,11 +1,10 @@
 // Copyright 2017-2023 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { perf } from '../test';
-import { isHex } from '.';
+import { perf } from '../test/index.js';
+import { isHex } from './index.js';
 
 describe('isHex', (): void => {
   const test = '1234abcd';

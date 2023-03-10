@@ -17,9 +17,9 @@
   },
   "sideEffects": false,
   "type": "module",
-  "version": "10.4.3-8-x",
+  "version": "11.0.2-4-x",
   "main": "index.js",
   "dependencies": {
-    "@babel/runtime": "^7.21.0"
+    "tslib": "^2.5.0"
   }
 }

@@ -1,12 +1,11 @@
 // Copyright 2017-2023 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
 import { arrayRange, u8aEq } from '@polkadot/util';
 
-import { cryptoWaitReady, ed25519PairFromSeed, mnemonicGenerate, mnemonicToMiniSecret, sr25519PairFromSeed } from '..';
+import { cryptoWaitReady, ed25519PairFromSeed, mnemonicGenerate, mnemonicToMiniSecret, sr25519PairFromSeed } from '../index.js';
 
 // NOTE: This basically controls how long stuff runs for, YMMV
 //

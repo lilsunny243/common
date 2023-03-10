@@ -1,10 +1,9 @@
 // Copyright 2017-2023 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { hdValidatePath } from '.';
+import { hdValidatePath } from './index.js';
 
 const VECTORS: [string, boolean][] = [
   ["m/44'/60'/0'/0/0", true],

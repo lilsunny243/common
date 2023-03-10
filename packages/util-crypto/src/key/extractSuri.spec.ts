@@ -1,10 +1,9 @@
 // Copyright 2017-2023 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { ExtractResult, keyExtractSuri } from './extractSuri';
+import { ExtractResult, keyExtractSuri } from './extractSuri.js';
 
 describe('keyExtractSuri', (): void => {
   it('does not extract from invalid suri', (): void => {

@@ -1,11 +1,10 @@
 // Copyright 2017-2023 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { ed25519PairFromString } from '../ed25519';
-import { naclBoxPairFromSecret, naclSeal } from '.';
+import { ed25519PairFromString } from '../ed25519/index.js';
+import { naclBoxPairFromSecret, naclSeal } from './index.js';
 
 describe('naclSeal', (): void => {
   it('seals a message', (): void => {

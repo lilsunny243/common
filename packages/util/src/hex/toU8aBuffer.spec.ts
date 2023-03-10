@@ -1,10 +1,9 @@
 // Copyright 2017-2023 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { hexToU8a } from './toU8aBuffer';
+import { hexToU8a } from './toU8aBuffer.js';
 
 describe('hexToU8a', (): void => {
   it('returns an empty Uint8Array when null provided', (): void => {

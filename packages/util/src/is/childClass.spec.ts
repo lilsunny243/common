@@ -1,11 +1,10 @@
 // Copyright 2017-2023 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// eslint-disable-next-line spaced-comment
 /// <reference types="@polkadot/dev/node/test/node" />
 
-import { BN } from '../bn';
-import { isChildClass } from '.';
+import { BN } from '../bn/index.js';
+import { isChildClass } from './index.js';
 
 describe('isChildClass', (): void => {
   it('returns true when a Child value', (): void => {
