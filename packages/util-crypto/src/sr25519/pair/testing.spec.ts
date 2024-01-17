@@ -1,7 +1,7 @@
-// Copyright 2017-2023 @polkadot/util-crypto authors & contributors
+// Copyright 2017-2024 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-/// <reference types="@polkadot/dev/node/test/node" />
+/// <reference types="@polkadot/dev-test/globals.d.ts" />
 
 // mnemonic, entropy, seed, secret (expanded)
 type Test = [string, string, string, string];
@@ -153,6 +153,7 @@ const tests: Test[] = [
   ]
 ];
 
+// eslint-disable-next-line jest/no-export
 export default tests;
 
 it('has a test', (): void => {

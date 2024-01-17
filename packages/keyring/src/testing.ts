@@ -1,4 +1,4 @@
-// Copyright 2017-2023 @polkadot/keyring authors & contributors
+// Copyright 2017-2024 @polkadot/keyring authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { HexString } from '@polkadot/util/types';
@@ -119,7 +119,7 @@ function createMeta (name?: string, seed?: string) {
 
   return {
     isTesting: true,
-    name: name || (seed && seed.replace('//', '_').toLowerCase())
+    name: name || seed?.replace('//', '_').toLowerCase()
   };
 }
 

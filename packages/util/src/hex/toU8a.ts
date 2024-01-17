@@ -1,13 +1,11 @@
-// Copyright 2017-2023 @polkadot/util authors & contributors
+// Copyright 2017-2024 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
-
-import type { HexString } from '../types.js';
 
 const CHR = '0123456789abcdef';
 const U8 = new Uint8Array(256);
 const U16 = new Uint8Array(256 * 256);
 
-for (let i = 0; i < CHR.length; i++) {
+for (let i = 0, count = CHR.length; i < count; i++) {
   U8[CHR[i].charCodeAt(0) | 0] = i | 0;
 
   if (i > 9) {
@@ -38,7 +36,7 @@ for (let i = 0; i < 256; i++) {
  * hexToU8a('0x80001f', 32); // Uint8Array([0x00, 0x80, 0x00, 0x1f])
  * ```
  */
-export function hexToU8a (value?: HexString | string | null, bitLength = -1): Uint8Array {
+export function hexToU8a (value?: string | null, bitLength = -1): Uint8Array {
   if (!value) {
     return new Uint8Array();
   }

@@ -1,9 +1,10 @@
-// Copyright 2017-2023 @polkadot/util authors & contributors
+// Copyright 2017-2024 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-/// <reference types="@polkadot/dev/node/test/node" />
+/// <reference types="@polkadot/dev-test/globals.d.ts" />
 
 import { arrayRange } from '../array/index.js';
+import { TESTS } from '../bi/toU8a.spec.js';
 import { perf } from '../test/index.js';
 import { BN, bnToU8a } from './index.js';
 
@@ -40,65 +41,18 @@ describe('bnToU8a', (): void => {
     ).toEqual(new Uint8Array([0x56, 0x34, 0x12, 0x00]));
   });
 
-  describe('signed', (): void => {
-    it('converts negative numbers (BE)', (): void => {
-      expect(
-        bnToU8a(new BN(-1234), { isLe: false, isNegative: true })
-      ).toEqual(new Uint8Array([251, 46]));
-    });
+  describe('conversion tests', (): void => {
+    TESTS.forEach(([isLe, isNegative, numarr, strval], i): void => {
+      const bitLength = numarr.length * 8;
 
-    it('converts negative numbers (LE, i8)', (): void => {
-      expect(
-        bnToU8a(new BN(-12), { isNegative: true })
-      ).toEqual(new Uint8Array([244]));
-    });
-
-    it('converts negative numbers (LE, i16)', (): void => {
-      expect(
-        bnToU8a(new BN(-1234), { isNegative: true })
-      ).toEqual(new Uint8Array([46, 251]));
-    });
-
-    it('converts negative numbers (LE, i24)', (): void => {
-      expect(
-        bnToU8a(new BN(-123456), { isNegative: true })
-      ).toEqual(new Uint8Array([192, 29, 254]));
-    });
-
-    it('converts negative numbers (LE, i32)', (): void => {
-      expect(
-        bnToU8a(new BN(-123456789), { isNegative: true })
-      ).toEqual(new Uint8Array([235, 50, 164, 248]));
-    });
-
-    it('converts negative numbers (LE, i40)', (): void => {
-      expect(
-        bnToU8a(new BN(-5678999999), { isNegative: true })
-      ).toEqual(new Uint8Array([65, 86, 129, 173, 254]));
-    });
-
-    it('converts negative numbers (LE, i48)', (): void => {
-      expect(
-        bnToU8a(new BN(-9999999999999), { isNegative: true })
-      ).toEqual(new Uint8Array([1, 96, 141, 177, 231, 246]));
-    });
-
-    it('converts negative numbers (LE, i64)', (): void => {
-      expect(
-        bnToU8a(new BN('-999999999999999999'), { isNegative: true })
-      ).toEqual(new Uint8Array([1, 0, 156, 88, 76, 73, 31, 242]));
-    });
-
-    it('converts negative numbers (LE, bitLength)', (): void => {
-      expect(
-        bnToU8a(new BN(-1234), { bitLength: 32, isNegative: true })
-      ).toEqual(new Uint8Array([46, 251, 255, 255]));
-    });
-
-    it('converts negative numbers (LE, bitLength)', (): void => {
-      expect(
-        bnToU8a(new BN(-123456), { bitLength: 32, isNegative: true })
-      ).toEqual(new Uint8Array([192, 29, 254, 255]));
+      it(`#${i}: converts from ${strval} (bitLength=${bitLength}, isLe=${isLe}, isNegative=${isNegative})`, (): void => {
+        expect(
+          bnToU8a(
+            new BN(strval),
+            { bitLength, isLe, isNegative }
+          )
+        ).toEqual(new Uint8Array(numarr));
+      });
     });
   });
 

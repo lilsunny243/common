@@ -1,7 +1,7 @@
-// Copyright 2017-2023 @polkadot/util authors & contributors
+// Copyright 2017-2024 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-/// <reference types="@polkadot/dev/node/test/node" />
+/// <reference types="@polkadot/dev-test/globals.d.ts" />
 
 import { perfCmp } from '../test/index.js';
 import { hexToU8a } from './index.js';
@@ -66,12 +66,6 @@ describe('hexToU8a', (): void => {
     expect(
       hexToU8a('0x68656C6c6f20776F726c64') // hello world (11 bytes, non-aligned)
     ).toEqual(new Uint8Array([0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x20, 0x77, 0x6f, 0x72, 0x6c, 0x64]));
-  });
-
-  it.skip('fails when non-hex value provided', (): void => {
-    expect(
-      () => hexToU8a('notahex')
-    ).toThrow(/hex value to convert/);
   });
 
   perfCmp('hexToU8a', ['hexToU8aBuffer', 'hexToU8a'], 40, [[ptest]], (s: string, isSecond) =>

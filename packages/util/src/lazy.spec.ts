@@ -1,13 +1,13 @@
-// Copyright 2017-2023 @polkadot/util authors & contributors
+// Copyright 2017-2024 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-/// <reference types="@polkadot/dev/node/test/node" />
+/// <reference types="@polkadot/dev-test/globals.d.ts" />
 
 import { lazyMethod, lazyMethods } from './index.js';
 
 describe('lazyMethod', (): void => {
   it('adds a key on the object', (): void => {
-    const test: Record<string, unknown> = {};
+    const test: { a?: number } = {};
 
     expect(test.a).not.toBeDefined();
 
@@ -17,7 +17,7 @@ describe('lazyMethod', (): void => {
   });
 
   it('allows the name to be retrieved', (): void => {
-    const test: Record<string, unknown> = {};
+    const test: { a?: number } = {};
 
     expect(test.a).not.toBeDefined();
 
@@ -27,7 +27,7 @@ describe('lazyMethod', (): void => {
   });
 
   it('calls the getter lazily', (): void => {
-    const test: Record<string, unknown> = {};
+    const test: { a?: number } = {};
     const getter = jest.fn(() => 123);
 
     expect(test.a).not.toBeDefined();
@@ -41,7 +41,7 @@ describe('lazyMethod', (): void => {
   });
 
   it('calls the getter a single time', (): void => {
-    const test: Record<string, unknown> = {};
+    const test: { a?: number } = {};
     const getter = jest.fn(() => 123);
 
     lazyMethod(test, 'a', getter);
@@ -56,15 +56,16 @@ describe('lazyMethod', (): void => {
 
 describe('lazyMethods', (): void => {
   it('sets multiple properties', (): void => {
-    const test: Record<string, unknown> = {};
+    const test: { a?: string; b?: string; c?: string } = {};
     const getter = jest.fn((name: string) => name);
-    const set = lazyMethods(test, ['a', 'b', 'c'], getter);
 
-    expect(set.a).toEqual('a');
-    expect(set.b).toEqual('b');
+    lazyMethods(test, ['a', 'b', 'c'], getter);
+
+    expect(test.a).toEqual('a');
+    expect(test.b).toEqual('b');
     expect(getter).toHaveBeenCalledTimes(2);
-    expect(set.a).toEqual('a');
-    expect(set.b).toEqual('b');
+    expect(test.a).toEqual('a');
+    expect(test.b).toEqual('b');
     expect(getter).toHaveBeenCalledTimes(2);
   });
 });

@@ -1,7 +1,8 @@
-// Copyright 2017-2023 @polkadot/util-crypto authors & contributors
+// Copyright 2017-2024 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { DeriveJunction } from './DeriveJunction.js';
+import type { DeriveJunction } from './DeriveJunction.js';
+
 import { keyExtractPath } from './extractPath.js';
 
 export interface ExtractResult {
@@ -24,7 +25,7 @@ export function keyExtractSuri (suri: string): ExtractResult {
     throw new Error('Unable to match provided value to a secret URI');
   }
 
-  const [, phrase, , derivePath, , , password] = matches as string[];
+  const [, phrase, , derivePath, , , password] = matches;
   const { path } = keyExtractPath(derivePath);
 
   return {

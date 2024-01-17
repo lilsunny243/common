@@ -1,7 +1,5 @@
-// Copyright 2017-2023 @polkadot/util-crypto authors & contributors
+// Copyright 2017-2024 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
-
-import type { HexString } from '@polkadot/util/types';
 
 import { BN, bnToU8a, compactAddLength, hexToU8a, isBigInt, isBn, isHex, isNumber, isString, stringToU8a } from '@polkadot/util';
 
@@ -46,7 +44,7 @@ export class DeriveJunction {
     return !this.#isHard;
   }
 
-  public hard (value: HexString | number | string | bigint | BN | Uint8Array): DeriveJunction {
+  public hard (value: number | string | bigint | BN | Uint8Array): DeriveJunction {
     return this.soft(value).harden();
   }
 
@@ -56,7 +54,7 @@ export class DeriveJunction {
     return this;
   }
 
-  public soft (value: HexString | number | string | bigint | BN | Uint8Array): DeriveJunction {
+  public soft (value: number | string | bigint | BN | Uint8Array): DeriveJunction {
     if (isNumber(value) || isBn(value) || isBigInt(value)) {
       return this.soft(bnToU8a(value, BN_LE_256_OPTS));
     } else if (isHex(value)) {

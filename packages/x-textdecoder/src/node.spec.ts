@@ -1,12 +1,11 @@
-// Copyright 2017-2023 @polkadot/x-textencoder authors & contributors
+// Copyright 2017-2024 @polkadot/x-textencoder authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-/// <reference types="@polkadot/dev/node/test/node" />
+/// <reference types="@polkadot/dev-test/globals.d.ts" />
 
 import { xglobal } from '@polkadot/x-global';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// @ts-expect-error Clearing this, it is obviously not valid in normal code
 xglobal.TextDecoder = undefined;
 
 describe('TextDecoder (node)', (): void => {

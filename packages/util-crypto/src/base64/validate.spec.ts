@@ -1,7 +1,7 @@
-// Copyright 2017-2023 @polkadot/util-crypto authors & contributors
+// Copyright 2017-2024 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-/// <reference types="@polkadot/dev/node/test/node" />
+/// <reference types="@polkadot/dev-test/globals.d.ts" />
 
 import { base64Validate } from './index.js';
 
@@ -10,5 +10,23 @@ describe('base64Validate', (): void => {
     expect(
       () => base64Validate('aGVsbG8gd29ybGQg0J/RgNC40LLQtd^GC0YHRgtCy0YPRjiDQvNC4IOS9oOWlvQ==')
     ).toThrow(/Invalid base64 character "\^" \(0x5e\) at index 30/);
+  });
+
+  it('validates with one extra padding character', (): void => {
+    expect(
+      base64Validate('bGlnaHQgd28=')
+    ).toEqual(true);
+  });
+
+  it('validates with two extra padding characters', (): void => {
+    expect(
+      base64Validate('bGlnaHQgdw==')
+    ).toEqual(true);
+  });
+
+  it('validates misplaced padding characters', (): void => {
+    expect(
+      () => base64Validate('bGlnaHQgdw=g=')
+    ).toThrow(/Invalid base64 padding sequence "=g"/);
   });
 });

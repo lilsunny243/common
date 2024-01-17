@@ -1,7 +1,7 @@
-// Copyright 2017-2023 @polkadot/keyring authors & contributors
+// Copyright 2017-2024 @polkadot/keyring authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-/// <reference types="@polkadot/dev/node/test/node" />
+/// <reference types="@polkadot/dev-test/globals.d.ts" />
 
 // From https://github.com/paritytech/substrate/wiki/Secret-URI-Test-Vectors
 
@@ -95,7 +95,7 @@ describe('keyring.addFromUri', (): void => {
   for (const [type, tests] of Object.entries(TESTS)) {
     const keyring = new Keyring({ type: type as KeypairType });
 
-    describe(type, (): void => {
+    describe(`${type}`, (): void => {
       tests.forEach(({ pk, ss, uri }): void => {
         it(`creates ${uri}`, (): void => {
           const pair = keyring.addFromUri(uri, {}, type as KeypairType);

@@ -1,4 +1,4 @@
-// Copyright 2017-2023 @polkadot/util authors & contributors
+// Copyright 2017-2024 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 /**
@@ -33,7 +33,7 @@ export function objectProperty <S> (that: object, key: string, getter: (key: str
  * @summary Assign get properties on the input object
  */
 export function objectProperties <S> (that: object, keys: string[], getter: (key: string, index: number, self: S) => unknown, getName?: (key: string, index: number) => string): void {
-  for (let i = 0; i < keys.length; i++) {
+  for (let i = 0, count = keys.length; i < count; i++) {
     objectProperty(that, keys[i], getter, getName, i);
   }
 }

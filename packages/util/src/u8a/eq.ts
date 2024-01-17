@@ -1,7 +1,5 @@
-// Copyright 2017-2023 @polkadot/util authors & contributors
+// Copyright 2017-2024 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
-
-import type { HexString } from '../types.js';
 
 import { u8aToU8a } from './toU8a.js';
 
@@ -19,7 +17,7 @@ import { u8aToU8a } from './toU8a.js';
  * u8aEq(new Uint8Array([0x68, 0x65]), new Uint8Array([0x68, 0x65])); // true
  * ```
  */
-export function u8aEq (a: HexString | Uint8Array | string, b: HexString | Uint8Array | string): boolean {
+export function u8aEq (a: string | Uint8Array, b: string | Uint8Array): boolean {
   const u8aa = u8aToU8a(a);
   const u8ab = u8aToU8a(b);
 
@@ -35,7 +33,7 @@ export function u8aEq (a: HexString | Uint8Array | string, b: HexString | Uint8A
       }
     }
 
-    for (let i = length; i < u8aa.length; i++) {
+    for (let i = length, count = u8aa.length; i < count; i++) {
       if (u8aa[i] !== u8ab[i]) {
         return false;
       }

@@ -1,9 +1,9 @@
-// Copyright 2017-2023 @polkadot/util authors & contributors
+// Copyright 2017-2024 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-/// <reference types="@polkadot/dev/node/test/node" />
+/// <reference types="@polkadot/dev-test/globals.d.ts" />
 
-import { SQRT_TESTS } from '../bi/sqrt.spec.js';
+import { TESTS } from '../bi/sqrt.spec.js';
 import { BN, BN_SQRT_MAX_INTEGER, bnSqrt } from './index.js';
 
 describe('bnSqrt', (): void => {
@@ -25,11 +25,13 @@ describe('bnSqrt', (): void => {
     ).toEqual(true);
   });
 
-  SQRT_TESTS.forEach(([value, expected], index): void => {
-    it(`calcs for test #${index}`, (): void => {
-      expect(
-        bnSqrt(value).eq(new BN(expected))
-      ).toEqual(true);
+  describe('conversion tests', (): void => {
+    TESTS.forEach(([value, expected], i): void => {
+      it(`#${i}: calcs ${expected}`, (): void => {
+        expect(
+          bnSqrt(value).eq(new BN(expected))
+        ).toEqual(true);
+      });
     });
   });
 });

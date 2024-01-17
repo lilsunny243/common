@@ -1,4 +1,4 @@
-// Copyright 2017-2023 @polkadot/util authors & contributors
+// Copyright 2017-2024 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { SiDef } from '../types.js';
@@ -31,7 +31,7 @@ export const SI: SiDef[] = [
 /** @internal */
 export function findSi (type: string): SiDef {
   // use a loop here, better RN support (which doesn't have [].find)
-  for (let i = 0; i < SI.length; i++) {
+  for (let i = 0, count = SI.length; i < count; i++) {
     if (SI[i].value === type) {
       return SI[i];
     }

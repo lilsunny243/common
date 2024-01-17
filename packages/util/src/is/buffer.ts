@@ -1,15 +1,12 @@
-// Copyright 2017-2023 @polkadot/util authors & contributors
+// Copyright 2017-2024 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
+
+import type { BufferClass, BufferObject } from '../types.js';
 
 import { xglobal } from '@polkadot/x-global';
 
 import { hasBuffer } from '../has.js';
 import { isFunction } from './function.js';
-
-// We define a scappy low-level interface to mock Buffer
-// (this removes the need for the node typings in built bundles)
-interface BufTyp extends Function { isBuffer: (value: unknown) => boolean }
-interface BufObj { readDoubleLE: (...args: unknown[]) => unknown }
 
 /**
  * @name isBuffer
@@ -25,7 +22,7 @@ interface BufObj { readDoubleLE: (...args: unknown[]) => unknown }
  * console.log('isBuffer', isBuffer(Buffer.from([]))); // => true
  * ```
  */
-export function isBuffer (value: unknown): value is Buffer {
+export function isBuffer <T = BufferObject> (value: unknown): value is T {
   // we do check a function first, since it is slightly faster than isBuffer itself
-  return hasBuffer && isFunction(value && (value as unknown as BufObj).readDoubleLE) && (xglobal.Buffer as BufTyp).isBuffer(value);
+  return hasBuffer && !!value && isFunction((value as unknown as BufferObject).readDoubleLE) && (xglobal.Buffer as unknown as BufferClass).isBuffer(value);
 }

@@ -1,7 +1,7 @@
-// Copyright 2017-2023 @polkadot/networks authors & contributors
+// Copyright 2017-2024 @polkadot/networks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-/// <reference types="@polkadot/dev/node/test/node" />
+/// <reference types="@polkadot/dev-test/globals.d.ts" />
 
 import type { SubstrateNetwork } from './types.js';
 
@@ -13,8 +13,8 @@ describe('availableNetworks', (): void => {
     expect(availableNetworks.slice(0, 3).map(({ prefix }) => prefix)).toEqual([0, 2, 42]);
   });
 
-  it.skip('has a sorted list (first external, last external)', (): void => {
-    expect(availableNetworks[3].displayName).toEqual('Acala');
+  it('has a sorted list (first external, last external)', (): void => {
+    expect(availableNetworks[3].displayName).toEqual('3DP network');
     expect(availableNetworks[availableNetworks.length - 1].displayName).toEqual('ZERO');
   });
 
@@ -114,7 +114,7 @@ describe('selectableNetworks', (): void => {
   });
 
   it('has a sorted list (first external, last external)', (): void => {
-    expect(selectableNetworks[3].displayName).toEqual('Acala');
-    expect(selectableNetworks[selectableNetworks.length - 1].displayName).toEqual('xx network');
+    expect(selectableNetworks[3].displayName).toEqual('3DP network');
+    expect(selectableNetworks[selectableNetworks.length - 1].displayName).toEqual('Zeitgeist');
   });
 });

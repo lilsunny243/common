@@ -1,33 +1,78 @@
-// Copyright 2017-2023 @polkadot/keyring authors & contributors
+// Copyright 2017-2024 @polkadot/keyring authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { HexString } from '@polkadot/util/types';
 import type { EncryptedJson, Keypair, KeypairType, Prefix } from '@polkadot/util-crypto/types';
 
 export interface KeyringOptions {
-  /**
-   * @description The ss58Format to use for address encoding (defaults to 42)
-   */
+  /** The ss58Format to use for address encoding (defaults to 42) */
   ss58Format?: Prefix;
-  /**
-   * @description The type of keyring to create (defaults to ed25519)
-   */
+  /** The type of keyring to create (defaults to ed25519) */
   type?: KeypairType;
 }
 
-export type KeyringPair$Meta = Record<string, unknown>;
+export interface KeyringPair$MetaHardware {
+  accountIndex?: number;
+  accountOffset?: number;
+  addressOffset?: number;
+  hardwareType?: 'ledger';
+}
+
+export interface KeyringPair$MetaFlags {
+  isDefaultAuthSelected?: boolean;
+  isExternal?: boolean;
+  isHardware?: boolean;
+  isHidden?: boolean;
+  isInjected?: boolean;
+  isMultisig?: boolean;
+  isProxied?: boolean;
+  isRecent?: boolean;
+  isTesting?: boolean;
+}
+
+export interface KeyringPair$MetaContract {
+  abi: string;
+  genesisHash?: HexString | null;
+}
+
+export interface KeyringPair$MetaExtension {
+  source?: string;
+}
+
+export interface KeyringPair$MetaMultisig {
+  threshold?: number;
+  who?: string[];
+}
+
+export interface KeyringPair$MetaParent {
+  parentAddress?: string;
+  parentName?: string;
+}
+
+export interface KeyringPair$Meta extends KeyringPair$MetaExtension, KeyringPair$MetaFlags, KeyringPair$MetaHardware, KeyringPair$MetaMultisig, KeyringPair$MetaParent {
+  address?: string;
+  contract?: KeyringPair$MetaContract;
+  genesisHash?: HexString | null;
+  name?: string;
+  suri?: string;
+  tags?: string[];
+  type?: KeypairType;
+  whenCreated?: number;
+  whenEdited?: number;
+  whenUsed?: number;
+
+  [key: string]: unknown;
+}
 
 export interface KeyringPair$Json extends EncryptedJson {
   /** The ss58 encoded address or the hex-encoded version (the latter is for ETH-compat chains) */
-  address: string | HexString;
+  address: string;
   /** The underlying metadata associated with the keypair */
   meta: KeyringPair$Meta;
 }
 
 export interface SignOptions {
-  /**
-   * @description Create a MultiSignature-compatible output with an indicator type
-   **/
+  /** Create a MultiSignature-compatible output with an indicator type */
   withType?: boolean;
 }
 
@@ -44,14 +89,12 @@ export interface KeyringPair {
   encodePkcs8 (passphrase?: string): Uint8Array;
   lock (): void;
   setMeta (meta: KeyringPair$Meta): void;
-  sign (message: HexString | string | Uint8Array, options?: SignOptions): Uint8Array;
+  sign (message: string | Uint8Array, options?: SignOptions): Uint8Array;
   toJson (passphrase?: string): KeyringPair$Json;
   unlock (passphrase?: string): void;
-  encryptMessage (message: HexString | string | Uint8Array, recipientPublicKey: HexString | string | Uint8Array, nonce?: Uint8Array): Uint8Array;
-  decryptMessage (encryptedMessageWithNonce: HexString | string | Uint8Array, senderPublicKey: HexString | string | Uint8Array): Uint8Array | null;
-  verify (message: HexString | string | Uint8Array, signature: Uint8Array, signerPublic: HexString | string | Uint8Array): boolean;
-  vrfSign (message: HexString | string | Uint8Array, context?: HexString | string | Uint8Array, extra?: HexString | string | Uint8Array): Uint8Array;
-  vrfVerify (message: HexString | string | Uint8Array, vrfResult: Uint8Array, signerPublic: HexString | Uint8Array | string, context?: HexString | string | Uint8Array, extra?: HexString | string | Uint8Array): boolean;
+  verify (message: string | Uint8Array, signature: Uint8Array, signerPublic: string | Uint8Array): boolean;
+  vrfSign (message: string | Uint8Array, context?: string | Uint8Array, extra?: string | Uint8Array): Uint8Array;
+  vrfVerify (message: string | Uint8Array, vrfResult: Uint8Array, signerPublic: string | Uint8Array, context?: string | Uint8Array, extra?: string | Uint8Array): boolean;
 }
 
 export interface KeyringPairs {

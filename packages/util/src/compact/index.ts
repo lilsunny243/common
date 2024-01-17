@@ -1,4 +1,4 @@
-// Copyright 2017-2023 @polkadot/util authors & contributors
+// Copyright 2017-2024 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 /**
@@ -23,6 +23,6 @@
  */
 
 export { compactAddLength } from './addLength.js';
-export { compactStripLength } from './stripLength.js';
 export { compactFromU8a, compactFromU8aLim } from './fromU8a.js';
+export { compactStripLength } from './stripLength.js';
 export { compactToU8a } from './toU8a.js';

@@ -1,7 +1,7 @@
-// Copyright 2017-2023 @polkadot/util-crypto authors & contributors
+// Copyright 2017-2024 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-/// <reference types="@polkadot/dev/node/test/node" />
+/// <reference types="@polkadot/dev-test/globals.d.ts" />
 
 import { hexToU8a } from '@polkadot/util';
 import { waitReady } from '@polkadot/wasm-crypto';
@@ -40,9 +40,8 @@ describe('secp256k1Expand', (): void => {
     });
   }
 
-  perfWasm('secp256k1Expand', 2000, (input, onlyJs) => secp256k1Expand(input, onlyJs),
-    [[
-      hexToU8a('0x03b9dc646dd71118e5f7fda681ad9eca36eb3ee96f344f582fbe7b5bcdebb13077')
-    ]]
+  perfWasm('secp256k1Expand', 2000, (input, onlyJs) => secp256k1Expand(input, onlyJs), [[
+    hexToU8a('0x03b9dc646dd71118e5f7fda681ad9eca36eb3ee96f344f582fbe7b5bcdebb13077')
+  ]]
   );
 });

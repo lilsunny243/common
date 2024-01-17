@@ -1,12 +1,13 @@
-// Copyright 2017-2023 @polkadot/util authors & contributors
+// Copyright 2017-2024 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-/// <reference types="@polkadot/dev/node/test/node" />
+/// <reference types="@polkadot/dev-test/globals.d.ts" />
 
 import { BN } from '../bn/index.js';
 import { _sqrt2pow53n, nSqrt } from './index.js';
 
-export const SQRT_TESTS: [string | number | BN | bigint, string | number][] = [
+// eslint-disable-next-line jest/no-export
+export const TESTS: [value: string | number | BN | bigint, expected: string | number][] = [
   [0, 0],
   [1, 1],
   [4, 2],
@@ -46,11 +47,13 @@ describe('nSqrt', (): void => {
     ).toEqual(true);
   });
 
-  SQRT_TESTS.forEach(([value, expected], index): void => {
-    it(`calcs for test #${index}`, (): void => {
-      expect(
-        nSqrt(value) === BigInt(expected)
-      ).toEqual(true);
+  describe('conversion tests', (): void => {
+    TESTS.forEach(([value, expected], i): void => {
+      it(`#${i}: calcs ${expected}`, (): void => {
+        expect(
+          nSqrt(value) === BigInt(expected)
+        ).toEqual(true);
+      });
     });
   });
 });

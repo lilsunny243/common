@@ -5,6 +5,10 @@
     "outDir": "./build",
     "rootDir": "./src"
   },
+  "exclude": [
+    "**/*.spec.ts",
+    "**/mod.ts"
+  ],
   "references": [
     { "path": "../x-bigint/tsconfig.build.json" },
     { "path": "../x-global/tsconfig.build.json" },

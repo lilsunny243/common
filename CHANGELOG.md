@@ -1,5 +1,177 @@
 # CHANGELOG
 
+## 12.6.2 Dec 18, 2023
+
+Changes:
+
+- Update to latest `@polkadot/wasm-crypto`
+- Upgrade dependencies to latest versions
+
+
+## 12.6.1 Nov 18, 2023
+
+Contributed:
+
+- Ledger support for Quartz (Thanks to https://github.com/CertainLach)
+- Add flag to disable same-version esm/cjs warnings (Thanks to https://github.com/forgetso)
+
+Changes:
+
+- Adjust logger check for `process.env`
+- Adjust `isRiscV` helper to check for `PVM\0` bytes
+- Drop support for Node 16 (EOL 11 Sep 2023)
+- Upgrade dependencies to latest stable versions
+
+
+## 12.5.1 Sep 15, 2023
+
+Contributed:
+
+- Add `isRiskV` helper (Thanks to https://github.com/peetzweg)
+- Ledger support for Enjin & Matrixchain (Thanks to https://github.com/leonardocustodio)
+
+Changes:
+
+- Expand interface type comments (assists in-editor helpers)
+- Upgrade dependencies to latest stable versions
+
+
+## 12.4.2 Aug 23, 2023
+
+Changes:
+
+- Fix `u8aTo{BigInt, Bn, Number}` for non-negative `i{8, 16, 32...}` inputs
+- Extend `u8aToBuffer` with `hasBuffer` check
+- Adjust util tests (extract input/output arrays)
+
+
+## 12.4.1 Aug 17, 2023
+
+Changes:
+
+- Add support for Ledger `signRaw`, as exposed by lower-level
+- Update code to use `?.` shortcuts where appropriate
+- Adjust `u8aToBuffer` & `isBuffer` typings to not require `Buffer`
+- Use `stringify/import.meta.url` helpers in specs
+- Upgrade dependencies to latest stable versions
+
+
+## 12.3.2 Jun 12, 2023
+
+Changes:
+
+- Adjust `SubstrateNetwork` typing with `HexString` genesisHash
+- Re-export `Constructor<T>` type (deprecated, replaced with `Class<T>`)
+
+
+## 12.3.1 Jun 11, 2023
+
+Changes:
+
+- Only allow padding characters in base64 strings
+- Expand typings for keyring meta with known keys
+- Adjust object index access for stricter tsconfig settings
+
+
+## 12.2.2 Jun 4, 2023
+
+Changes:
+
+- Apply missing count assignment for `for (...)` loops
+- Remove unused `@types/*` dev dependencies
+- Upgrade dependencies to latest stable versions
+
+
+## 12.2.1 May 13, 2023
+
+Changes:
+
+- Align `u8aToBigInt` tests with `u8aToBn`
+- Unroll loops on most-frequently used paths for `u8aToBigInt`
+- Add `module` to `package.json` export map (ESM-only)
+- Upgrade dependencies to latest stable versions
+
+
+## 12.1.2 May 1, 2023
+
+Changes:
+
+- Adjust typing for `isChildClass` & `Constructor` usage
+
+
+## 12.1.1 Apr 29, 2023
+
+Changes:
+
+- Add shareable `identity` & `noop` functions
+- Flatten `Buffer | Uint8Array` types (as used) to base-only `Uint8Array`
+- Apply `readonly` specifiers to private class fields where applicable
+- Adjust compilation output for `__internal__` class fields
+- Remove unused types from `util`
+- Upgrade dependencies to latest stable versions
+
+
+## 12.0.1 Apr 22, 2023
+
+Contributed:
+
+- Add Cere genesisHash (Thanks to https://github.com/shamilkhan)
+
+Changes:
+
+- Swap secp256k1 functionality to `@noble/curves`
+- Swap ed25519 functionality to `@noble/curves`
+- Replace `tweetnacl` secretbox usage with slimmer local version
+- Adjust `isCodec` helper with closer API alignment
+- Initial steps to multi-language bip39 support
+- Use Node webcrypto for Node `getRandomValues` support
+- Upgrade dependencies to latest stable versions
+- Drop support for Node 14 (EOL 30 Apr 2023)
+
+
+## 11.1.3 Apr 1, 2023
+
+Contributed:
+
+- Add Bittensor genesisHash (Thanks to https://github.com/camfairchild)
+
+Changes:
+
+- Allow empty string as valid base32/base58/base64 decoder input
+- Add additional/missing `/*#__PURE__*/` annotations
+- Upgrade dependencies to latest stable versions
+
+
+## 11.1.2 Mar 25, 2023
+
+Changes:
+
+- Expand error details for invalid publicKeys in secp256k1 compress/expand operations
+- Expand `@polkadot/hw-ledger` with specific per-method JSDoc
+- Upgrade dependencies to latest stable versions
+
+
+## 11.1.1 Mar 18, 2023
+
+Contributed:
+
+- Add 3DPass genesisHash (Thanks to https://github.com/fedosov)
+
+Changes:
+
+- Remove support for encrypt/decrypt functionality on keypair
+- Upgrade dependencies to latest stable versions
+
+
+## 11.0.2 Mar 11, 2023
+
+Changes:
+
+- Use consistent `.js` imports in source files (TS moduleResolution)
+- Remove TS resolveJsonModule option
+- Upgrade to `@polkadot/wasm-crypto` 7.0.3
+
+
 ## 11.0.1 Mar 4, 2023
 
 Changes:

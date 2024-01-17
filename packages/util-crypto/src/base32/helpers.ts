@@ -1,4 +1,4 @@
-// Copyright 2017-2023 @polkadot/util-crypto authors & contributors
+// Copyright 2017-2024 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { U8aLike } from '@polkadot/util/types';
@@ -19,6 +19,7 @@ interface Config {
   ipfs?: string;
   regex?: RegExp;
   type: string;
+  withPadding?: boolean;
 }
 
 type DecodeFn = (value: string, ipfsCompat?: boolean) => Uint8Array;
@@ -56,30 +57,33 @@ export function createIs (validate: ValidateFn): ValidateFn {
   return (value?: unknown, ipfsCompat?: boolean): value is string => {
     try {
       return validate(value, ipfsCompat);
-    } catch (error) {
+    } catch {
       return false;
     }
   };
 }
 
 /** @internal */
-export function createValidate ({ chars, ipfs, type }: Config): ValidateFn {
+export function createValidate ({ chars, ipfs, type, withPadding }: Config): ValidateFn {
   return (value?: unknown, ipfsCompat?: boolean): value is string => {
-    if (!value || typeof value !== 'string') {
-      throw new Error(`Expected non-null, non-empty ${type} string input`);
-    }
-
-    if (ipfs && ipfsCompat && value[0] !== ipfs) {
+    if (typeof value !== 'string') {
+      throw new Error(`Expected ${type} string input`);
+    } else if (ipfs && ipfsCompat && !value.startsWith(ipfs)) {
       throw new Error(`Expected ipfs-compatible ${type} to start with '${ipfs}'`);
     }
 
-    for (let i = (ipfsCompat ? 1 : 0); i < value.length; i++) {
-      if (!(chars.includes(value[i]) || (
-        value[i] === '=' && (
-          (i === value.length - 1) ||
-          !chars.includes(value[i + 1])
-        )
-      ))) {
+    for (let i = (ipfsCompat ? 1 : 0), count = value.length; i < count; i++) {
+      if (chars.includes(value[i])) {
+        // all ok, character found
+      } else if (withPadding && value[i] === '=') {
+        if (i === count - 1) {
+          // last character, everything ok
+        } else if (value[i + 1] === '=') {
+          // next one is also padding, sequence ok
+        } else {
+          throw new Error(`Invalid ${type} padding sequence "${value[i]}${value[i + 1]}" at index ${i}`);
+        }
+      } else {
         throw new Error(`Invalid ${type} character "${value[i]}" (0x${value.charCodeAt(i).toString(16)}) at index ${i}`);
       }
     }

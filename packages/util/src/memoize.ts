@@ -1,4 +1,4 @@
-// Copyright 2017-2023 @polkadot/util authors & contributors
+// Copyright 2017-2024 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { Memoized } from './types.js';
@@ -40,7 +40,7 @@ export function memoize <T, F extends (...args: any[]) => T> (fn: F, { getInstan
     const stringParams = stringify(args);
     const instanceId = getInstanceId();
 
-    if (cache[instanceId] && cache[instanceId][stringParams] !== undefined) {
+    if (cache[instanceId]?.[stringParams] !== undefined) {
       delete cache[instanceId][stringParams];
     }
   };

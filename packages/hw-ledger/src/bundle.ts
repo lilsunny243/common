@@ -1,13 +1,14 @@
-// Copyright 2017-2023 @polkadot/hw-ledger authors & contributors
+// Copyright 2017-2024 @polkadot/hw-ledger authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { SubstrateApp } from '@zondax/ledger-substrate';
-import type { AccountOptions, LedgerAddress, LedgerSignature, LedgerTypes, LedgerVersion } from './types.js';
+import type { TransportDef, TransportType } from '@polkadot/hw-ledger-transports/types';
+import type { AccountOptions, LedgerAddress, LedgerSignature, LedgerVersion } from './types.js';
 
 import { newSubstrateApp } from '@zondax/ledger-substrate';
 
 import { transports } from '@polkadot/hw-ledger-transports';
-import { hexAddPrefix, u8aToBuffer } from '@polkadot/util';
+import { hexAddPrefix, u8aToBuffer, u8aWrapBytes } from '@polkadot/util';
 
 import { LEDGER_DEFAULT_ACCOUNT, LEDGER_DEFAULT_CHANGE, LEDGER_DEFAULT_INDEX, LEDGER_SUCCESS_CODE } from './constants.js';
 import { ledgerApps } from './defaults.js';
@@ -29,28 +30,49 @@ async function wrapError <T extends WrappedResult> (promise: Promise<T>): Promis
   return result;
 }
 
-// A very basic wrapper for a ledger app -
-//  - it connects automatically, creating an app as required
-//  - Promises return errors (instead of wrapper errors)
+/** @internal Wraps a sign/signRaw call and returns the associated signature */
+function sign (method: 'sign' | 'signRaw', message: Uint8Array, accountOffset = 0, addressOffset = 0, { account = LEDGER_DEFAULT_ACCOUNT, addressIndex = LEDGER_DEFAULT_INDEX, change = LEDGER_DEFAULT_CHANGE }: Partial<AccountOptions> = {}): (app: SubstrateApp) => Promise<LedgerSignature> {
+  return async (app: SubstrateApp): Promise<LedgerSignature> => {
+    const { signature } = await wrapError(app[method](account + accountOffset, change, addressIndex + addressOffset, u8aToBuffer(message)));
+
+    return {
+      signature: hexAddPrefix(signature.toString('hex'))
+    };
+  };
+}
+
+/**
+ * @name Ledger
+ *
+ * @description
+ * A very basic wrapper for a ledger app -
+ *   - it connects automatically on use, creating an underlying interface as required
+ *   - Promises reject with errors (unwrapped errors from @zondax/ledger-substrate)
+ */
 export class Ledger {
+  readonly #ledgerName: string;
+  readonly #transportDef: TransportDef;
+
   #app: SubstrateApp | null = null;
 
-  #chain: Chain;
+  constructor (transport: TransportType, chain: Chain) {
+    const ledgerName = ledgerApps[chain];
+    const transportDef = transports.find(({ type }) => type === transport);
 
-  #transport: LedgerTypes;
-
-  constructor (transport: LedgerTypes, chain: Chain) {
-    // u2f is deprecated
-    if (!['hid', 'webusb'].includes(transport)) {
-      throw new Error(`Unsupported transport ${transport}`);
-    } else if (!Object.keys(ledgerApps).includes(chain)) {
-      throw new Error(`Unsupported chain ${chain}`);
+    if (!ledgerName) {
+      throw new Error(`Unsupported Ledger chain ${chain}`);
+    } else if (!transportDef) {
+      throw new Error(`Unsupported Ledger transport ${transport}`);
     }
 
-    this.#chain = chain;
-    this.#transport = transport;
+    this.#ledgerName = ledgerName;
+    this.#transportDef = transportDef;
   }
 
+  /**
+   * Returns the address associated with a specific account & address offset. Optionally
+   * asks for on-device confirmation
+   */
   public async getAddress (confirm = false, accountOffset = 0, addressOffset = 0, { account = LEDGER_DEFAULT_ACCOUNT, addressIndex = LEDGER_DEFAULT_INDEX, change = LEDGER_DEFAULT_CHANGE }: Partial<AccountOptions> = {}): Promise<LedgerAddress> {
     return this.withApp(async (app: SubstrateApp): Promise<LedgerAddress> => {
       const { address, pubKey } = await wrapError(app.getAddress(account + accountOffset, change, addressIndex + addressOffset, confirm));
@@ -62,6 +84,9 @@ export class Ledger {
     });
   }
 
+  /**
+   * Returns the version of the Ledger application on the device
+   */
   public async getVersion (): Promise<LedgerVersion> {
     return this.withApp(async (app: SubstrateApp): Promise<LedgerVersion> => {
       const { device_locked: isLocked, major, minor, patch, test_mode: isTestMode } = await wrapError(app.getVersion());
@@ -74,38 +99,41 @@ export class Ledger {
     });
   }
 
-  public async sign (message: Uint8Array, accountOffset = 0, addressOffset = 0, { account = LEDGER_DEFAULT_ACCOUNT, addressIndex = LEDGER_DEFAULT_INDEX, change = LEDGER_DEFAULT_CHANGE }: Partial<AccountOptions> = {}): Promise<LedgerSignature> {
-    return this.withApp(async (app: SubstrateApp): Promise<LedgerSignature> => {
-      const buffer = u8aToBuffer(message);
-      const { signature } = await wrapError(app.sign(account + accountOffset, change, addressIndex + addressOffset, buffer));
-
-      return {
-        signature: hexAddPrefix(signature.toString('hex'))
-      };
-    });
+  /**
+   * Signs a transaction on the Ledger device
+   */
+  public async sign (message: Uint8Array, accountOffset?: number, addressOffset?: number, options?: Partial<AccountOptions>): Promise<LedgerSignature> {
+    return this.withApp(sign('sign', message, accountOffset, addressOffset, options));
   }
 
-  async getApp (): Promise<SubstrateApp> {
-    if (!this.#app) {
-      const def = transports.find(({ type }) => type === this.#transport);
-
-      if (!def) {
-        throw new Error(`Unable to find a transport for ${this.#transport}`);
-      }
-
-      const transport = await def.create();
-
-      this.#app = newSubstrateApp(transport, ledgerApps[this.#chain]);
-    }
-
-    return this.#app;
+  /**
+   * Signs a message (non-transactional) on the Ledger device
+   */
+  public async signRaw (message: Uint8Array, accountOffset?: number, addressOffset?: number, options?: Partial<AccountOptions>): Promise<LedgerSignature> {
+    return this.withApp(sign('signRaw', u8aWrapBytes(message), accountOffset, addressOffset, options));
   }
 
+  /**
+   * @internal
+   *
+   * Returns a created SubstrateApp to perform operations against. Generally
+   * this is only used internally, to ensure consistent bahavior.
+   */
   async withApp <T> (fn: (app: SubstrateApp) => Promise<T>): Promise<T> {
     try {
-      const app = await this.getApp();
+      if (!this.#app) {
+        const transport = await this.#transportDef.create();
 
-      return await fn(app);
+        // We need this override for the actual type passing - the Deno environment
+        // is quite a bit stricter and it yields invalids between the two (specifically
+        // since we mangle the imports from .default in the types for CJS/ESM and between
+        // esm.sh versions this yields problematic outputs)
+        //
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any
+        this.#app = newSubstrateApp(transport as any, this.#ledgerName);
+      }
+
+      return await fn(this.#app);
     } catch (error) {
       this.#app = null;
 

@@ -1,9 +1,11 @@
-// Copyright 2017-2023 @polkadot/util authors & contributors
+// Copyright 2017-2024 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-/// <reference types="@polkadot/dev/node/test/node" />
+/// <reference types="@polkadot/dev-test/globals.d.ts" />
 
-import { formatDecimal, formatNumber } from '../index.js';
+/* global it, expect */
+
+import { formatDecimal, formatNumber, stringify } from '../index.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ExecFn = (...params: any[]) => unknown;
@@ -42,7 +44,7 @@ ${formatFixed(micro).padStart(NUM_PAD + PRE_PAD + 1)} μs/op`;
 }
 
 export function perf (name: string, count: number, inputs: readonly unknown[][], exec: ExecFn, withLog?: boolean): void {
-  const test = process.env.GITHUB_REPOSITORY
+  const test = process.env['GITHUB_REPOSITORY']
     ? it.skip
     : it;
 
@@ -62,7 +64,7 @@ ${`${name}:`.padStart(PRE_PAD)} ${time.toFixed(2).padStart(NUM_PAD)} ms${formatO
 }
 
 export function perfCmp (name: string, [first, second]: [string, string], count: number, inputs: readonly unknown[][], exec: ExecFn): void {
-  const test = process.env.GITHUB_REPOSITORY
+  const test = process.env['GITHUB_REPOSITORY']
     ? it.skip
     : it;
 
@@ -83,7 +85,7 @@ ${`${second}:`.padStart(PRE_PAD)} ${t2.toFixed(2).padStart(NUM_PAD)} ms ${t1 > t
 
     expect(
       r1.filter((_, i) =>
-        JSON.stringify(r1[i]) !== JSON.stringify(r2[i])
+        stringify(r1[i]) !== stringify(r2[i])
       )
     ).toHaveLength(0);
   });

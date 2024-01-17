@@ -1,11 +1,9 @@
-// Copyright 2017-2023 @polkadot/util-crypto authors & contributors
+// Copyright 2017-2024 @polkadot/util-crypto authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { HexString } from '@polkadot/util/types';
+import { ed25519 } from '@noble/curves/ed25519';
 
-import nacl from 'tweetnacl';
-
-import { u8aToU8a } from '@polkadot/util';
+import { hasBigInt, u8aToU8a } from '@polkadot/util';
 import { ed25519Verify as wasmVerify, isReady } from '@polkadot/wasm-crypto';
 
 /**
@@ -22,7 +20,7 @@ import { ed25519Verify as wasmVerify, isReady } from '@polkadot/wasm-crypto';
  * ed25519Verify([...], [...], [...]); // => true/false
  * ```
  */
-export function ed25519Verify (message: HexString | Uint8Array | string, signature: HexString | Uint8Array | string, publicKey: HexString | Uint8Array | string, onlyJs?: boolean): boolean {
+export function ed25519Verify (message: string | Uint8Array, signature: string | Uint8Array, publicKey: string | Uint8Array, onlyJs?: boolean): boolean {
   const messageU8a = u8aToU8a(message);
   const publicKeyU8a = u8aToU8a(publicKey);
   const signatureU8a = u8aToU8a(signature);
@@ -33,7 +31,11 @@ export function ed25519Verify (message: HexString | Uint8Array | string, signatu
     throw new Error(`Invalid signature, received ${signatureU8a.length} bytes, expected 64`);
   }
 
-  return !onlyJs && isReady()
-    ? wasmVerify(signatureU8a, messageU8a, publicKeyU8a)
-    : nacl.sign.detached.verify(messageU8a, signatureU8a, publicKeyU8a);
+  try {
+    return !hasBigInt || (!onlyJs && isReady())
+      ? wasmVerify(signatureU8a, messageU8a, publicKeyU8a)
+      : ed25519.verify(signatureU8a, messageU8a, publicKeyU8a);
+  } catch {
+    return false;
+  }
 }

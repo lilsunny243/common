@@ -1,4 +1,4 @@
-// Copyright 2017-2023 @polkadot/util authors & contributors
+// Copyright 2017-2024 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 /**
@@ -18,7 +18,7 @@
 export function arrayChunk <T> (array: T[], chunkSize: number): T[][] {
   const outputSize = Math.ceil(array.length / chunkSize);
 
-  // noop for the single-split case
+  // shortcut for the single-split case
   if (outputSize === 1) {
     return [array];
   }

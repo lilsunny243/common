@@ -1,4 +1,4 @@
-// Copyright 2017-2023 @polkadot/hw-ledger authors & contributors
+// Copyright 2017-2024 @polkadot/hw-ledger authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 // These match up with the keys of the knownLedger object in the @polkadot/networks/defaults/ledger.ts
@@ -15,6 +15,7 @@ export const ledgerApps: Record<string, string> = {
   darwinia: 'Darwinia',
   'dock-mainnet': 'Dock',
   edgeware: 'Edgeware',
+  enjin: 'Enjin',
   equilibrium: 'Equilibrium',
   genshiro: 'Genshiro',
   hydradx: 'HydraDX',
@@ -22,6 +23,7 @@ export const ledgerApps: Record<string, string> = {
   karura: 'Karura',
   khala: 'Khala',
   kusama: 'Kusama',
+  matrixchain: 'Matrixchain',
   nodle: 'Nodle',
   origintrail: 'OriginTrail',
   parallel: 'Parallel',
@@ -31,6 +33,7 @@ export const ledgerApps: Record<string, string> = {
   polkadex: 'Polkadex',
   polkadot: 'Polkadot',
   polymesh: 'Polymesh',
+  quartz: 'Quartz',
   sora: 'Sora',
   stafi: 'Stafi',
   statemine: 'Statemine',
@@ -38,5 +41,6 @@ export const ledgerApps: Record<string, string> = {
   ternoa: 'Ternoa',
   unique: 'Unique',
   vtb: 'VTB',
-  xxnetwork: 'XXNetwork'
+  xxnetwork: 'XXNetwork',
+  zeitgeist: 'Zeitgeist'
 };

@@ -1,4 +1,4 @@
-// Copyright 2017-2023 @polkadot/util authors & contributors
+// Copyright 2017-2024 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 // Originally from https://github.com/polkadot-js/extension/pull/743
@@ -10,13 +10,13 @@ import { u8aEq } from './eq.js';
 import { u8aToU8a } from './toU8a.js';
 
 /** @internal */
-export const U8A_WRAP_ETHEREUM = u8aToU8a('\x19Ethereum Signed Message:\n');
+export const U8A_WRAP_ETHEREUM = /*#__PURE__*/ u8aToU8a('\x19Ethereum Signed Message:\n');
 
 /** @internal */
-export const U8A_WRAP_PREFIX = u8aToU8a('<Bytes>');
+export const U8A_WRAP_PREFIX = /*#__PURE__*/ u8aToU8a('<Bytes>');
 
 /** @internal */
-export const U8A_WRAP_POSTFIX = u8aToU8a('</Bytes>');
+export const U8A_WRAP_POSTFIX = /*#__PURE__*/ u8aToU8a('</Bytes>');
 
 const WRAP_LEN = U8A_WRAP_PREFIX.length + U8A_WRAP_POSTFIX.length;
 
@@ -51,12 +51,14 @@ export function u8aUnwrapBytes (bytes: U8aLike): Uint8Array {
 
 /**
  * @name u8aWrapBytes
- * @description Adds a <Bytes>...</Bytes> wrapper to the supplied value (if not already existing)
+ * @description
+ * Adds a <Bytes>...</Bytes> wrapper to the supplied value, if
+ * - We don't already have a Bytes wrapper
+ * - The message is not an Ethereum-style message
  */
 export function u8aWrapBytes (bytes: U8aLike): Uint8Array {
   const u8a = u8aToU8a(bytes);
 
-  // if Ethereum-wrapping, we don't add our wrapping bytes
   return u8aIsWrapped(u8a, true)
     ? u8a
     : u8aConcatStrict([U8A_WRAP_PREFIX, u8a, U8A_WRAP_POSTFIX]);

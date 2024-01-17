@@ -1,10 +1,7 @@
-// Copyright 2017-2023 @polkadot/util authors & contributors
+// Copyright 2017-2024 @polkadot/util authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-/// <reference types="@polkadot/dev/node/test/node" />
-
-// no TS, this is not meant to be a global...
-export {};
+/// <reference types="@polkadot/dev-test/globals.d.ts" />
 
 describe('cryptoWaitReady', (): void => {
   it('should return false when it cannot initialize', async (): Promise<void> => {

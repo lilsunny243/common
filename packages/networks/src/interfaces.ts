@@ -1,4 +1,4 @@
-// Copyright 2017-2023 @polkadot/networks authors & contributors
+// Copyright 2017-2024 @polkadot/networks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { KnownSubstrate, Network, SubstrateNetwork } from './types.js';
@@ -29,8 +29,8 @@ function toExpanded (o: KnownSubstrate): SubstrateNetwork {
   n.isIgnored = n.isTestnet || (
     !(
       o.standardAccount &&
-      o.decimals && o.decimals.length &&
-      o.symbols && o.symbols.length
+      o.decimals?.length &&
+      o.symbols?.length
     ) &&
     o.prefix !== 42
   );
